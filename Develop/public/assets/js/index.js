@@ -29,7 +29,6 @@ const hide = (elem) => {
 let activeNote = {};
 
 const getNotes = () => {
-  console.log("GETTING notes!");
   fetch('/api/notes', {
     method: 'GET',
     headers: {
@@ -37,14 +36,15 @@ const getNotes = () => {
     }
   }).then((res) => res.json())
     .then((data) => {
-      console.log("Made it here : " + data);
+      console.log("GET success => " + data);
       return data;
+  }).catch((err) => {
+      console.error(`GET Error => `, err);
   });
 };
 
 const saveNote = (note) => {
-  console.log("Saving Note!");
-
+  console.log(note);
   fetch('api/notes', {
     method: 'POST',
     headers: {
@@ -53,7 +53,7 @@ const saveNote = (note) => {
     body: JSON.stringify(note)
   }).then((res) => res.json())
     .then((data) => {
-      console.log('POST request => ', data);
+      console.log('POST success => ', data);
       return data;
     }).catch((err) => {
         console.error(`POST Error => `, err);
@@ -66,6 +66,13 @@ const deleteNote = (id) =>
     headers: {
       'Content-Type': 'application/json'
     }
+  }).then((res) => {
+    res.json();
+  }).then((data) => {
+    console.log('DELETE success => ', data);
+    return data;
+  }).catch((err) => {
+    console.error('DELETE error', err);
   });
 
 const renderActiveNote = () => {
