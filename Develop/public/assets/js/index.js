@@ -55,7 +55,6 @@ const deleteNote = (id) => {
     }
   });
 };
-  
 
 const renderActiveNote = () => {
   console.log("rendering notes");
