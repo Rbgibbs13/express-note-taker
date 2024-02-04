@@ -29,17 +29,11 @@ const hide = (elem) => {
 let activeNote = {};
 
 const getNotes = () => {
-  fetch('/api/notes', {
+  return fetch('/api/notes', {
     method: 'GET',
     headers: {
       'Content-Type': 'application/json'
     }
-  }).then((res) => res.json())
-    .then((data) => {
-      console.log("GET success => " + data);
-      return data;
-  }).catch((err) => {
-      console.error(`GET Error => `, err);
   });
 };
 
@@ -51,13 +45,14 @@ const saveNote = (note) => {
       'Content-Type': 'application/json'
     },
     body: JSON.stringify(note)
-  }).then((res) => res.json())
-    .then((data) => {
+  }).then((res) => {
+      res.json();
+  }).then((data) => {
       console.log('POST success => ', data);
       return data;
-    }).catch((err) => {
-        console.error(`POST Error => `, err);
-    });
+  }).catch((err) => {
+      console.error(`POST Error => `, err);
+  });
 };
   
 const deleteNote = (id) =>
@@ -152,6 +147,7 @@ const handleRenderBtns = () => {
 
 // Render the list of note titles
 const renderNoteList = async (notes) => {
+  console.log(notes);
   let jsonNotes = await notes.json();
   if (window.location.pathname === '/notes') {
     noteList.forEach((el) => (el.innerHTML = ''));
