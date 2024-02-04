@@ -38,44 +38,31 @@ const getNotes = () => {
 };
 
 const saveNote = (note) => {
-  console.log(note);
-  fetch('api/notes', {
+  return fetch('api/notes', {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json'
     },
     body: JSON.stringify(note)
-  }).then((res) => {
-      res.json();
-  }).then((data) => {
-      console.log('POST success => ', data);
-      return data;
-  }).catch((err) => {
-      console.error(`POST Error => `, err);
   });
 };
   
-const deleteNote = (id) =>
-  fetch(`/api/notes/${id}`, {
+const deleteNote = (id) => {
+  return fetch(`/api/notes/${id}`, {
     method: 'DELETE',
     headers: {
       'Content-Type': 'application/json'
     }
-  }).then((res) => {
-    res.json();
-  }).then((data) => {
-    console.log('DELETE success => ', data);
-    return data;
-  }).catch((err) => {
-    console.error('DELETE error', err);
   });
+};
+  
 
 const renderActiveNote = () => {
   console.log("rendering notes");
   hide(saveNoteBtn);
   hide(clearBtn);
 
-  if (activeNote.id) {
+  if (activeNote.uuid) {
     show(newNoteBtn);
     noteTitle.setAttribute('readonly', true);
     noteText.setAttribute('readonly', true);
@@ -107,7 +94,7 @@ const handleNoteDelete = (e) => {
   e.stopPropagation();
 
   const note = e.target;
-  const noteId = JSON.parse(note.parentElement.getAttribute('data-note')).id;
+  const noteId = JSON.parse(note.parentElement.getAttribute('data-note')).uuid;
 
   if (activeNote.id === noteId) {
     activeNote = {};
@@ -147,7 +134,6 @@ const handleRenderBtns = () => {
 
 // Render the list of note titles
 const renderNoteList = async (notes) => {
-  console.log(notes);
   let jsonNotes = await notes.json();
   if (window.location.pathname === '/notes') {
     noteList.forEach((el) => (el.innerHTML = ''));

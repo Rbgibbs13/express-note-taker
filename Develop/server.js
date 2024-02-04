@@ -13,25 +13,20 @@ app.use(express.json());
 app.use(express.static('public'));
 
 app.get('/notes', (req, res) => {
-    console.info(`${req.method} request at /notes received for notes page`);
+    console.info(`${req.method} request received at /notes`);
     res.sendFile(path.join(__dirname, "/public/notes.html"));
 });
 
-// app.get('/api/notes', (req, res) => {
-//     console.info(`${req.method} request received at api/notes to get notes`);
-//     fs.readFile(`./db/db.json`, "utf8", (err, data) => {
-//         if(err) {
-//             res.status(500).console.error(err);
-//         } else {
-//             const parsed = JSON.parse(data);
-//             res.status(200).json(parsed);
-//             return parsed;
-//         }
-//     });
-// });
-
 app.get('/api/notes', (req, res) => {
-    res.status(200).send(noteData);
+    console.info(`${req.method} request received at api/notes`);
+    fs.readFile(`./db/db.json`, "utf8", (err, data) => {
+        if(err) {
+            res.status(500).console.error(err);
+        } else {
+            const parsed = JSON.parse(data);
+            res.status(200).send(parsed);
+        }
+    });
 });
 
 app.get('/api/notes/:id', (req, res) => {
@@ -40,9 +35,8 @@ app.get('/api/notes/:id', (req, res) => {
 });
 
 app.post('/api/notes', (req, res) => {
-    console.log(`${req.method} request at /notes received`);
+    console.info(`${req.method} request at /api/notes received`);
     const { title, text } = req.body;
-
     if(title && text) {
         const uuid = uuidv4();
         const newNote = {
@@ -63,7 +57,6 @@ app.post('/api/notes', (req, res) => {
                     err ? console.error(err) : console.log(`Note saved`)
                 );
                 return res.status(200).json(parsed);
-                //res.status(200).sendFile(path.join(__dirname, '/public/notes.html'));
             }
         });
     } else {
@@ -73,6 +66,7 @@ app.post('/api/notes', (req, res) => {
 
 app.delete('/api/notes/:id', (req, res) => {
     const id = req.params.id;
+    console.info(`${req.method} request at /api/notes/:id received`);
     fs.readFile(`./db/db.json`, 'utf8', (err, data) => {
         if(err) {
             res.status(404).console.error(err);
@@ -101,7 +95,7 @@ app.delete('/api/notes/:id', (req, res) => {
 });
 
 app.get('*', (req, res) => {
-    console.info(`${req.method} request at universal returning index`);
+    console.info(`${req.method} request at universal`);
     res.status(200).sendFile(path.join(__dirname, "/public/index.html"))
 });
 

@@ -10,18 +10,13 @@
         "uuid": "ebac4186-c080-4a30-a97b-41b750736f78"
     },
     {
-        "title": "Test Note 1 w/ ID",
-        "text": "Adding IDs to the notes 1",
-        "uuid": "d76e107d-ce0d-40cb-a40a-b1c2afa77799"
+        "title": "Another New Note 1",
+        "text": "New Note 1",
+        "uuid": "3e2abe2b-c93a-4a5f-b7cb-88070539e0cd"
     },
     {
-        "title": "Test Note 3 w/ ID",
-        "text": "Adding IDs to the notes 3",
-        "uuid": "dbf588bd-7281-431a-974b-128ddd51dc69"
-    },
-    {
-        "title": "Test Note 4 w/ ID",
-        "text": "Adding IDs to the notes 4",
-        "uuid": "b0338c21-ca2c-41ff-b75d-9d1fcab8c154"
+        "title": "New Note",
+        "text": "New Body",
+        "uuid": "322dd114-4547-4e0e-bfc7-a33fb412b2a8"
     }
 ]
